@@ -37,8 +37,12 @@ public:
     int getWeight() {
         return weight;
     }
-    
-    // !!! ДОПИСАТИ СЕТТЕР ДЛЯ ВАГИ
+   //----------------------------------------set Weight 
+    void setWeight(double newWeight) {
+        if (newWeight > 0) {
+            weight = newWeight;
+        }
+   }
 
     //---------------------------------------get info
     void getInfo() {
@@ -87,10 +91,32 @@ struct Inventory {
         }
     }
 
+    void UseItem(string itemName) {
+        for (auto& item : items) {
+            if (item.getName() == itemName) {
+                cout << item.getName() <<" has been taken in leading hand" << endl;
+                return;
+            }
+        }
+        cout << "Item with this name has been not found" << endl;
+    }
 
-    // зробити метод для використання предмету який було зазначено (itemName)
-
-    // метод для того щоб викинути ОДИН предмет  (itemName)
+    void DropItem(string itemName) {
+        for (auto& item : items) {
+            if (item.getName() == itemName) {
+                if (item.getQuant() > 1) {
+                    item.setQuanity(item.getQuant() - 1);
+                    cout << "one " << itemName << " has been thrown away" << endl;
+                    return;
+                }
+                else {
+                    RemoveItem(item.getName());
+                    cout << itemName << " has been deleted" << endl;
+                    return;
+                }
+            }
+        }
+    }
 };
 
 struct Player {
@@ -100,5 +126,11 @@ struct Player {
 
 int main() {
     Player player1;
+    Item Halberd;
+
+    Halberd.setQuanity(1);
+    Halberd.setWeight(4.5);
+
+    player1.inventory.AddItem(Halberd);
 
 }
