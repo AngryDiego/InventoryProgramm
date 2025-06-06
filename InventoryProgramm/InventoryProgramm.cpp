@@ -1,4 +1,4 @@
-﻿// структура повʼязана з інвентар 
+// структура повʼязана з інвентар 
 
 #include <iostream>
 #include <vector>
@@ -28,10 +28,17 @@ public:
     int getQuant() {
         return quantity;
     }
+    void setQuanity(int newQuantity){
+        if(newQuantity > 0 && newQuantity <= 64){
+            quantity = newQuantity;
+        }
+    }
     //---------------------------------------get Weight
     int getWeight() {
         return weight;
     }
+    
+    // !!! ДОПИСАТИ СЕТТЕР ДЛЯ ВАГИ
 
     //---------------------------------------get info
     void getInfo() {
@@ -59,25 +66,31 @@ struct Inventory {
         }
     }
 
-    void AddItem() {
+    void AddItem(Item newItem) {
         for (auto& item : items) {
-            if (items.empty()) {
-                items.push_back(item.getName()); //типу я хочу щоб ось весь цей цикл перевіряв інвентар. Та коли знаходив пусте місце, туди пхав айтем
-                break;
+           if(item.getName() == newItem.getName()){
+            item.setQuanity(item.getQuant() + newItem.getQuant());
+           }
+           return;
+        }
+        items.push_back(newItem);
+
+    }
+
+    void RemoveItem(string itemName) {
+        for(int i = 0; i < items.size(); i++){
+            if(items[i].getName() == itemName){
+                items.erase(items.begin() + i);                             // літерали 
+                cout << itemName << " has been deleted" << endl;
+                return;
             }
         }
     }
 
-    void RemoveItem(int slot) {
-        for (int index = slot; index = index + 1; index++) {
-            if (items.empty()) {
-                break;
-            }
-            else {
-                items.push_back("");
-            }
-        }
-    }
+
+    // зробити метод для використання предмету який було зазначено (itemName)
+
+    // метод для того щоб викинути ОДИН предмет  (itemName)
 };
 
 struct Player {
