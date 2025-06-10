@@ -120,7 +120,7 @@ struct Inventory {
 };
 
 struct Player {
-    Inventory inventory;
+    Inventory inventory;//
 };
 
 
